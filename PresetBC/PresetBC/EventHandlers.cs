@@ -27,33 +27,33 @@ namespace PresetBC
             if (!sender.CheckPermission("pbc.broadcast"))
             {
                 ev.ReplyMessage = ("Permission Denied.");
-				return;
+                return;
             }
             
             if (ev.Name == "pre")
             {
                 ev.ReplyMessage = "";
-				foreach(var bc in plugin.Config.GetBroadcasts()){
-					ev.ReplyMessage += bc[0] + "\n";
-				}
+                foreach(var bc in plugin.Config.GetBroadcasts()){
+                    ev.ReplyMessage += bc[0] + "\n";
+                }
             }
             else if (ev.Name.StartsWith("pre"))
             {
-				var id = ev.Name.Substring(2);
-				var broadcasts = plugin.Config.GetBroadcasts();
-				
-				if(int.TryParse(id.Trim(), out var index) && index < broadcasts.Count){
-					Map.Broadcast(plugin.Config.BroadcastDuration, broadcasts[index][1]);
-					ev.ReplyMessage = "Broadcast Sent.";
-					return;
-				}
-				
-				var bc = broadcasts.Where(bc => bc[0].Trim().ToLower() == id.Trim().ToLower());
-				if(bc){
-					Map.Broadcast(plugin.Config.BroadcastDuration, bc);
-					ev.ReplyMessage = "Broadcast Sent.";
-					return;
-				}
+                var id = ev.Name.Substring(2);
+                var broadcasts = plugin.Config.GetBroadcasts();
+                
+                if(int.TryParse(id.Trim(), out var index) && index < broadcasts.Count){
+                    Map.Broadcast(plugin.Config.BroadcastDuration, broadcasts[index][1]);
+                    ev.ReplyMessage = "Broadcast Sent.";
+                    return;
+                }
+                
+                var bc = broadcasts.Where(bc => bc[0].Trim().ToLower() == id.Trim().ToLower());
+                if(bc){
+                    Map.Broadcast(plugin.Config.BroadcastDuration, bc);
+                    ev.ReplyMessage = "Broadcast Sent.";
+                    return;
+                }
             }
         }
     }

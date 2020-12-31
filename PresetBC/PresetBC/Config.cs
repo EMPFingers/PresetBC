@@ -18,12 +18,12 @@ namespace PresetBC
         public ushort BroadcastDuration { get; set; } = 15;
 
         [Description("Define your broadcasts here.")]
-		public List<string> Broadcasts = new List<string>() {
-			"Hello World!: <size=40><color=#ff0000ff><b>Hello, world!</b></color></size> \n <size=25>This is a sample broadcast!</size>"
-		};
-		
-		internal List<string[]> GetBroadcasts(){
-			return Broadcasts.Select(bc => bc.Split(new string[]{": "}, 2, StringSplitOptions.None));
-		}
+        public List<string> Broadcasts = new List<string>() {
+            "Hello World!: <size=40><color=#ff0000ff><b>Hello, world!</b></color></size> \n <size=25>This is a sample broadcast!</size>"
+        };
+        
+        internal List<string[]> GetBroadcasts(){
+            return Broadcasts.Select(bc => bc.Split(new string[]{": "}, 2, StringSplitOptions.None));
+        }
     }
 }
