@@ -32,9 +32,11 @@ namespace PresetBC
             
             if (ev.Name == "pre")
             {
-                ev.ReplyMessage = "";
-                foreach(var bc in plugin.Config.GetBroadcasts()){
-                    ev.ReplyMessage += bc[0] + "\n";
+				var broadcasts = plugin.Config.GetBroadcasts();
+				
+                ev.ReplyMessage = "\n";
+                for(var i = 0; i < broadcasts.Count; i++){
+                    ev.ReplyMessage += (i+1) + ". "+ broadcasts[i][0] + "\n";
                 }
             }
             else if (ev.Name.StartsWith("pre"))
@@ -42,13 +44,13 @@ namespace PresetBC
                 var id = ev.Name.Substring(3);
                 var broadcasts = plugin.Config.GetBroadcasts();
                 
-                if(int.TryParse(id.Trim(), out var index) && index < broadcasts.Count){
-                    Map.Broadcast(plugin.Config.BroadcastDuration, broadcasts[index][1]);
+                if(int.TryParse(id.Trim(), out var index) && index <= broadcasts.Count && index > 0){
+                    Map.Broadcast(plugin.Config.BroadcastDuration, broadcasts[index-1][1]);
                     ev.ReplyMessage = "Broadcast Sent.";
                     return;
                 }
                 
-                var bc = broadcasts.Where(bc => bc[0].Trim().ToLower() == id.Trim().ToLower()).FirstOrDefault();
+                var bc = broadcasts.FirstOrDefault(bc => bc[0].Trim().ToLower() == id.Trim().ToLower());
                 if(bc){
                     Map.Broadcast(plugin.Config.BroadcastDuration, bc[0]);
                     ev.ReplyMessage = "Broadcast Sent.";
