@@ -22,7 +22,7 @@ namespace PresetBC
             "Hello World!: <size=40><color=#ff0000ff><b>Hello, world!</b></color></size> \n <size=25>This is a sample broadcast!</size>"
         };
         
-        internal List<string[]> GetBroadcasts(){
+        internal List<string[]> GetBroadcasts() {
             return Broadcasts.Select(bc => bc.Split(new string[]{": "}, 2, StringSplitOptions.None));
         }
     }
